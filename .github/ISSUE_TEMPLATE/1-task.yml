@@ -1,0 +1,102 @@
+name: 作業 (task)
+description: 機能の追加、改善、保守、ドキュメント、インフラの作業。AI エージェントにそのまま渡せる形で書く
+body:
+  - type: markdown
+    attributes:
+      value: |
+        この Issue は、AI エージェントへの指示 (プロンプト) としても読まれます。
+        - 1 Issue で 1 PR、触るファイルは 10 個以内を目安にします。超えそうなら Issue を分けます
+        - Status、優先度、見積り、期限は、ここには書きません。Projects のフィールドとマイルストーンで持ちます
+        - 「必須」の欄は空にしないでください (private リポジトリではフォームの必須チェックが効きません)
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 種類
+      options:
+        - 機能の追加
+        - 改善・リファクタリング
+        - 保守 (依存の更新、掃除など)
+        - ドキュメント
+        - インフラ・設定
+        - その他
+    validations:
+      required: false
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal (必須)
+      description: 何がどうなれば終わりか。1〜2 文で。なぜ必要かも添える
+      placeholder: 例) 一覧の API が 1 回の呼び出しで 100 件まで返せるようになる。今は 20 件ずつしか取れず、画面の表示が遅い
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope_in
+    attributes:
+      label: 触るもの (必須)
+      description: ファイル、ディレクトリ、モジュール。パスか permalink で書く
+      placeholder: |
+        - src/api/list.ts
+        - tests/api/list.test.ts
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope_out
+    attributes:
+      label: 触らないもの (必須)
+      description: この Issue の範囲の外にするもの。無ければ「なし」
+      placeholder: 例) DB のスキーマ、認証まわり
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 完了条件 (必須)
+      description: テストやコマンドで確かめられる形で書く
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: 確かめ方 (必須)
+      description: 実行するコマンドと、期待する結果。そのまま実行できる形で書く
+      placeholder: |
+        npm test -- tests/api/list.test.ts   # すべて通る
+        curl -s localhost:3000/api/list?limit=100 | jq length   # 100
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk (必須)
+      description: 本番、データ、認証、外部への公開への影響と、戻し方。無ければ「なし」
+      placeholder: |
+        例) 本番の API の応答が変わる。戻すときは PR を revert する
+        インフラなら: plan の差分、state への影響、apply する環境
+    validations:
+      required: true
+
+  - type: textarea
+    id: prerequisite
+    attributes:
+      label: 前提となる Issue
+      description: 先に終わっている必要がある Issue。Issue の Relationships でも「blocked by」として設定する
+      placeholder: owner/repo#123
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景・参考
+      description: 関連する Issue、PR、ドキュメント、議論へのリンク
+    validations:
+      required: false

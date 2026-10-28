@@ -1,0 +1,62 @@
+name: 親 Issue (epic)
+description: 複数の Issue (別のリポジトリのものも含む) を束ねる。終わりのある、小さな単位で
+labels: ["epic"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        親 Issue は「何が揃えば閉じてよいか」がはっきりしたものだけに使います。分類のための箱にはしません。
+        - 子 Issue は、この Issue の「Create sub-issue」か「Add existing issue」でサブ Issue として紐づけます。進捗は Projects に出ます
+        - 期限はマイルストーンで持ちます。この本文には書きません
+        - 本文は進捗に合わせて最新に保ちます。議論やバグ報告は子 Issue に分けます
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal (必須)
+      description: 全体として何がどうなれば終わりか。1〜2 文で
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: なぜやるか (必須)
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: 閉じてよい条件 (必須)
+      description: 全体が終わったと言える確かめ方。子 Issue が全部閉じることとは別に書く
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: children
+    attributes:
+      label: 子 Issue
+      description: 書き始めの見取り図。別リポジトリの Issue は owner/repo#番号 で書くとリンクになる。実体はサブ Issue で持つ
+      value: |
+        - [ ] owner/repo#番号
+    validations:
+      required: false
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: 範囲外
+      description: この親に含めないもの。別の親に回すもの
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 前提・依存
+      description: 先に終わっている必要があるもの。Issue なら Relationships でも「blocked by」として設定する
+    validations:
+      required: false

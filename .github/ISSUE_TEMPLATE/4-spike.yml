@@ -1,0 +1,53 @@
+name: 調査 (spike)
+description: 分からないことを、時間を区切って調べる。答えと次の一手を出して閉じる
+labels: ["spike"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        調査は時間を区切ります。時間内に答えが出なくても、分かったことと次の一手を書いて閉じます。
+        「必須」の欄は空にしないでください (private リポジトリではフォームの必須チェックが効きません)
+
+  - type: textarea
+    id: question
+    attributes:
+      label: 答えたい問い (必須)
+      description: 1 つの問いにする。答えが出たら何を決められるかも添える
+      placeholder: 例) 今の構成のまま 1 日 1 万件を処理できるか。できないなら、どこが詰まるか
+    validations:
+      required: true
+
+  - type: input
+    id: timebox
+    attributes:
+      label: 使う時間の上限 (必須)
+      placeholder: 例) 2 時間、1 日
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: deliverables
+    attributes:
+      label: 出すもの
+      description: 当てはまるものに印を付ける
+      options:
+        - label: 分かったことの要約を、この Issue にコメントする
+        - label: 動く試作 (PoC) を残す
+        - label: 進める・進めないの推奨を書く
+        - label: 判断が要るなら、判断の記録 (decision) の Issue を立てる
+        - label: 次の作業の Issue を立てる
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 制約
+      description: 使えない手段、触ってはいけない環境など
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景・参考
+    validations:
+      required: false

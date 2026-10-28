@@ -1,0 +1,66 @@
+name: 判断の記録 (decision)
+description: どちらにするか決める。選択肢と理由を残し、決めたら閉じる
+labels: ["decision"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        決めたら「決定と理由」を書いて閉じます。後から「なぜこうなっているか」を探すときの記録になります。
+        「必須」の欄は空にしないでください (private リポジトリではフォームの必須チェックが効きません)
+
+  - type: textarea
+    id: decide
+    attributes:
+      label: 決めること (必須)
+      description: 1〜2 文で
+      placeholder: 例) 定期実行を k8s の CronJob にするか、GitHub Actions の schedule にするか
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景 (必須)
+      description: なぜ今決める必要があるか。決めないと何が困るか
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: 選択肢 (必須)
+      description: それぞれの良い点と悪い点
+      value: |
+        1. 案 A
+           - 良い点:
+           - 悪い点:
+        2. 案 B
+           - 良い点:
+           - 悪い点:
+    validations:
+      required: true
+
+  - type: textarea
+    id: criteria
+    attributes:
+      label: 決める基準
+      description: 何を重く見るか (費用、手間、壊れたときの戻しやすさなど)
+    validations:
+      required: false
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 決定と理由
+      description: 決めたら書く。「案 X にする。理由は …」の形で。決める前は空でよい
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: followups
+    attributes:
+      label: 閉じる前に
+      options:
+        - label: 決定と理由を、この Issue に書いた
+        - label: 後に続く作業の Issue を立てた
+        - label: 関係するドキュメント (README、設計メモ) を直した

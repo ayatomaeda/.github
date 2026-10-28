@@ -1,0 +1,109 @@
+name: バグ (bug)
+description: 期待と違う動きをしている。再現手順と、直ったことの確かめ方を書く
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        再現手順は、そのままコピーして実行できる形で書きます。
+        「必須」の欄は空にしないでください (private リポジトリではフォームの必須チェックが効きません)
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 何が起きたか (必須)
+      description: 実際の動き。エラーの文面があればそのまま
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待する動き (必須)
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順 (必須)
+      description: 番号付きで。複数のコマンドが要るならシェルスクリプトの形で
+      placeholder: |
+        1. `npm run dev` で起動する
+        2. `/settings` を開く
+        3. 保存を押すと 500 が返る
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: 起きる頻度
+      options:
+        - 毎回
+        - ときどき
+        - 一度だけ
+        - 分からない
+    validations:
+      required: false
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: 以前は動いていたか
+      options:
+        - 以前は動いていた
+        - 最初から動かない
+        - 分からない
+    validations:
+      required: false
+
+  - type: input
+    id: last_working
+    attributes:
+      label: 最後に動いていた版
+      description: コミット、タグ、日付のどれか
+      placeholder: 例) v1.4.2、abc1234、2026-10-01
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: エラー出力・ログ
+      description: 貼り付けるとコードブロックになる
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境
+      description: 動いている場所と、関係するツールの版
+      placeholder: |
+        OS: macOS 26.1
+        node -v / python --version / terraform version / kubectl version の出力
+        動く場所: ローカル、CI、本番 (k8s、Vercel など)
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 直ったことの確かめ方
+      description: エージェントに直させるときは必ず書く
+      value: |
+        - [ ] 上の再現手順で起きなくなる
+        - [ ] 再発を防ぐテストがある
+    validations:
+      required: false
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: 影響範囲
+      description: 本番、データ、利用者への影響。急ぎかどうかの判断に使う
+    validations:
+      required: false
